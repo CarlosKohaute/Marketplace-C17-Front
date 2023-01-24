@@ -1,7 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-body{
+*{
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+html, #root, body{
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,9 +16,17 @@ body{
   color: ${(props) => props.theme.dark.fg};
 }`;
 
+const colors = {
+  lightPrimary: "rgb(98, 114, 164)",
+  lightSecondary: "rgb(68, 71, 90)",
+  middle: "rgb(139, 233, 253)",
+  darkPrimary: "rgb(40, 42, 54)",
+  darkSecondary: "rgb(248, 248, 242)"
+};
+
 export const theme = {
-  light: { bg: "rgb(98, 114, 164)", fg: "rgb(40, 42, 54)" },
-  dark: { bg: "rgb(40, 42, 54)", fg: "rgb(98, 114, 164)" },
+  light: { bg: colors.lightPrimary, fg: colors.lightSecondary },
+  dark: { bg: colors.darkPrimary, fg: colors.darkSecondary },
 };
 
 export interface Theme {
