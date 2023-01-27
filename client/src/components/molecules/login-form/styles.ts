@@ -14,7 +14,12 @@ export const StyledLoginForm = styled.div`
   }
 `;
 
-export const StyledForm = styled.form`
+export type StyledFormProps = {
+  error: boolean;
+};
+
+
+export const StyledForm = styled.form<StyledFormProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,6 +30,7 @@ export const StyledForm = styled.form`
     display: flex;
     width: 90%;
     padding: 0.5rem 1rem;
+    border: ${(props) => (props.error ? "solid 2px red" : "none")};
     margin: 1rem;
     border-radius: 1rem;
     border: none;
@@ -70,7 +76,7 @@ export const StyledForm = styled.form`
     border: none;
     border-radius: 0.9rem;
     background-color: ${(props) => props.theme.light.fg};
-    color: rgb(248,248,242);
+    color: rgb(248, 248, 242);
     cursor: pointer;
   }
 `;
