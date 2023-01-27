@@ -1,3 +1,3 @@
 # Marketplace-C17-Front
 
-Está com dados mocados, será refatoraado
+Está com dados mocados, será refatorado
