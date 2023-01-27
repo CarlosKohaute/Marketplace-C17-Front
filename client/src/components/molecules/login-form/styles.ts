@@ -67,16 +67,4 @@ export const StyledForm = styled.form<StyledFormProps>`
       background-color: ${(props) => props.theme.light.fg};
     }
   }
-  button {
-    margin: 1rem;
-    height: 90%;
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: center;
-    border: none;
-    border-radius: 0.9rem;
-    background-color: ${(props) => props.theme.light.fg};
-    color: rgb(248, 248, 242);
-    cursor: pointer;
-  }
 `;
