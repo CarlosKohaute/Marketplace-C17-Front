@@ -1,19 +1,21 @@
 import { FormEvent, useState } from "react";
 import { StyledForm, StyledLoginForm } from "./styles";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
+import { api } from "../../../utils/api/api";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   function handleShowPassword() {
     setShowPassword(!showPassword);
   }
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const loginPayload = {
       email: e.currentTarget.email.value,
       password: e.currentTarget.password.value,
     };
-    console.log(loginPayload);
+    const userData = await api.login(loginPayload);
+    console.log(userData);
   }
 
   return (
