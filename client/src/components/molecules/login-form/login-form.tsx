@@ -20,12 +20,13 @@ export function LoginForm() {
     <StyledLoginForm>
       <h2>Login</h2>
       <StyledForm onSubmit={handleSubmit}>
-        <input placeholder="Your e-mail" name="email" />
+        <input placeholder="Your e-mail" name="email" required />
         <div>
           <input
             placeholder="Your Password"
             type={showPassword ? "text" : "password"}
             name="password"
+            required
           />
           <button onClick={handleShowPassword}>
             {showPassword ? (
