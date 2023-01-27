@@ -1,14 +1,26 @@
+import axios from "axios";
 import { LoginRequest } from "../types/requests";
+
+axios.defaults.baseURL = "http://localhost:3333";
+axios.defaults.headers.post["Content-Type"] = "application/json";
+
+axios.interceptors.request.use(
+  function (config) {
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
 export const api = {
   login: async ({ email, password }: LoginRequest) => {
-    const response = await fetch("http://localhost:3333/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    return await response.json();
+    try {
+      const response = await axios.post("/auth/login", { email, password });
+      localStorage.setIcon("token", response.data.token);
+      return response.data;
+    } catch (err) {
+      alert(err);
+    }
   },
 };
