@@ -42,9 +42,9 @@ export const api = {
     }
   },
 
-  getCategories: async () => {
+  getProducts: async () => {
     try {
-      const response = await axios.get("/categories");
+      const response = await axios.get("/products");
       return response.data;
     } catch (err) {
       alert(err);
