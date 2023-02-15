@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginRequest } from "../types/requests";
+import { createProductPayload, LoginRequest } from "../types/requests";
 
 axios.defaults.baseURL = "http://localhost:3333";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -42,9 +42,27 @@ export const api = {
     }
   },
 
-  getProducts: async () => {
+  getCategories: async () => {
     try {
-      const response = await axios.get("/products");
+      const response = await axios.get("/categories");
+      return response.data;
+    } catch (err) {
+      alert(err);
+    }
+  },
+
+  createProductList: async (payload: createProductPayload) => {
+    try {
+      const response = await axios.post("/products", payload);
+      return response.data;
+    } catch (err) {
+      alert(err);
+    }
+  },
+
+  getProductList: async () => {
+    try {
+      const response = await axios.get("products");
       return response.data;
     } catch (err) {
       alert(err);

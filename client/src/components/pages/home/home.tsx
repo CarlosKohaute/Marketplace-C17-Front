@@ -1,53 +1,64 @@
 import { FormEvent, useEffect, useState } from "react";
 import { api } from "../../../utils/api/api";
 import { Card } from "../../atoms/card/card";
+import { Form, InputProps } from "../../atoms/form/form";
 import { Select } from "../../atoms/select/select";
 
-export type product = {
+export type Categorie = {
   id: string;
   name: string;
-  description: string;
-  image: string;
-  price: number;
 };
 
-export function Product() {
-  const [products, setProducts] = useState<product[]>([]);
-  const [search, setSearch] = useState("");
+export type productPayload = {
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  categoryId: string;
+};
 
-  async function findProducts() {
-    const produtos = await api.getProducts();
-    setProducts(produtos);
+export function Home() {
+  const [categories, setCategories] = useState<Categorie[]>([]);
+  const [selectedCategorie, setSelectedCategorie] = useState<
+    string | undefined
+  >();
+
+  const [products, setProducts] = useState<productPayload[]>([]);
+
+  const [control, setControl] = useState<boolean>(false);
+
+
+  async function findCategories() {
+    const data = await api.getCategories();
+    setCategories(data);
+    const response = await api.createProductList(data);
+  }
+  function getSelectedCategorie(value: string) {
+    setSelectedCategorie(value);
   }
 
-  const sortedProducts =
-    search.length > 0
-      ? products.filter((product) =>
-          product.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-        )
-      : products;
+
+
   useEffect(() => {
-    console.log("rodou useEffect");
-    findProducts();
+    findCategories();
   }, []);
-  console.log("renderizou");
+
+  useEffect(() => {
+    findProducts();
+  }, [control]);
+
   return (
     <div>
       <h2>Home</h2>
-      <input
-        type="text"
-        onChange={(e) => {
-          setSearch(e.currentTarget.value);
-        }}
-        placeholder="Search"
+      <Select
+        options={categories.map((categories) => {
+          return { name: categories.name, value: categories.id };
+        })}
+        selectedOption={getSelectedCategorie}
       />
-      {sortedProducts.map((product) => (
-        <div key={product.id}>
-          <img src={product.image}/>
-          <h2>{product.name}</h2>
-          <p>{product.description}</p>
-        </div>
-      ))}
+      <createProductForm/>
+      <h2>Products of this categorie</h2>
+ 
     </div>
   );
 }
