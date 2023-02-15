@@ -2,7 +2,12 @@ import { FormEvent } from "react";
 import { api } from "../../../utils/api/api";
 import { Form } from "../../atoms/form/form";
 
-export function createProductForm() {
+export interface CreateProductFormProps {
+  handleControl: () => void;
+}
+
+export function createProductForm( {
+  handleControl,}:CreateProductFormProps){
   const inputsData = [
     {
       placeholder: "Product infos",

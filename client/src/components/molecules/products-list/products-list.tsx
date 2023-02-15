@@ -1,8 +1,15 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../../utils/api/api";
+import { productPayload } from "../../pages/home/home";
 
-export default function ProductList() {
-  const [products, setProducts] = useState<>([]);
+export type ProductsListProps = {
+  selectedCategorie: string | undefined;
+};
+
+export default function ProductList({ selectedCategorie }: ProductsListProps) {
+  const [products, setProducts] = useState<productPayload[]>([]);
+  const [control, setControl] = useState<boolean>(false);
+
   const sortedProductsByCategorieId = selectedCategorie
     ? products.filter((product) => product.categoryId == selectedCategorie)
     : [];
@@ -10,8 +17,14 @@ export default function ProductList() {
     const data = await api.getProductList();
     setProducts(data);
   }
+
+  useEffect(() => {
+    findProducts();
+  }, [control]);
+
   return (
     <section>
+      <h2>Products of this categorie</h2>
       {sortedProductsByCategorieId.map((product) => {
         return (
           <div key={product.name}>
@@ -25,7 +38,4 @@ export default function ProductList() {
       })}
     </section>
   );
-}
-function setProducts(data: any) {
-  throw new Error("Function not implemented.");
 }

@@ -3,6 +3,8 @@ import { api } from "../../../utils/api/api";
 import { Card } from "../../atoms/card/card";
 import { Form, InputProps } from "../../atoms/form/form";
 import { Select } from "../../atoms/select/select";
+import { createProductForm } from "../../molecules/create-product/create-product-form";
+import ProductList from "../../molecules/products-list/products-list";
 
 export type Categorie = {
   id: string;
@@ -22,29 +24,23 @@ export function Home() {
   const [selectedCategorie, setSelectedCategorie] = useState<
     string | undefined
   >();
-
-  const [products, setProducts] = useState<productPayload[]>([]);
-
   const [control, setControl] = useState<boolean>(false);
-
 
   async function findCategories() {
     const data = await api.getCategories();
     setCategories(data);
-    const response = await api.createProductList(data);
   }
+
   function getSelectedCategorie(value: string) {
     setSelectedCategorie(value);
   }
 
-
+  function handleControl() {
+    setControl(!control);
+  }
 
   useEffect(() => {
     findCategories();
-  }, []);
-
-  useEffect(() => {
-    findProducts();
   }, [control]);
 
   return (
@@ -56,9 +52,7 @@ export function Home() {
         })}
         selectedOption={getSelectedCategorie}
       />
-      <createProductForm/>
-      <h2>Products of this categorie</h2>
- 
+      <ProductList selectedCategorie={selectedCategorie}/>
     </div>
   );
 }
