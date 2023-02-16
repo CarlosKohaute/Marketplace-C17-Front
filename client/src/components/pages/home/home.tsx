@@ -5,7 +5,7 @@ import { colors } from "../../../utils/colors";
 import { CategorieCard } from "../../atoms/categorie-card/categorie-card";
 import { Select } from "../../atoms/select/select";
 import { Categorie } from "../../types/data";
-import { CategorieContentDiv, CategorieDiv } from "./style";
+import { CategorieContentDiv, CategorieDiv, CategorieFilterDiv, CategorieInput } from "./style";
 
 export function Home() {
   const [categories, setCategories] = useState<Categorie[]>([]);
@@ -32,18 +32,24 @@ export function Home() {
 
   return (
     <CategorieDiv>
-       <input
-        type="text"
-        onChange={(e) => {
-          setSearch(e.currentTarget.value);
-        }}
-      />
-      <Select
-        selectedOption={setParamToFilter}
-        options={[
-          { name: "Name", value: "name" },
-        ]}
-      />
+    <CategorieFilterDiv>
+        <h2>Filters</h2>
+        <div>
+          <CategorieInput
+            type="text"
+            onChange={(e) => {
+              setSearch(e.currentTarget.value);
+            }}
+            placeholder="Search"
+          />
+          <Select
+            selectedOption={setParamToFilter}
+            options={[
+              { name: "Name", value: "name" },
+            ]}
+          />
+        </div>
+      </CategorieFilterDiv>
       <CategorieContentDiv>
       {filteredCategories.map((categorie) => {
           const color: any =

@@ -4,10 +4,13 @@ import { Form } from "../../atoms/form/form";
 
 export interface CreateProductFormProps {
   handleControl: () => void;
+  changeEditingMode: () => void;
 }
 
-export function createProductForm( {
-  handleControl,}:CreateProductFormProps){
+export function CreateProductForm({
+  handleControl,
+  changeEditingMode,
+}: CreateProductFormProps) {
   const inputsData = [
     {
       placeholder: "Product infos",
@@ -38,6 +41,7 @@ export function createProductForm( {
         title={"Create product"}
         inputs={inputsData}
         onSubmit={HandleSubmit}
+        cancel={changeEditingMode}
       />
     </section>
   );
