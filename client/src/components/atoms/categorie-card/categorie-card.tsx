@@ -6,7 +6,7 @@ export type CardProps = {
   id?: string;
   name?: string;
   theme?: string;
-  color: string | any;
+  color: string ;
   categorie?: any
 };
 
