@@ -23,7 +23,7 @@ export function Home() {
   const categorieSelectedData = categories.find(
     (categorie) => categorie.id == selectedCategorie
   );
-  console.log(categories);
+  console.log(JSON.parse(localStorage.getItem("user")??"").role);
   async function findCategories() {
     const data = await api.getCategories();
     setCategories(data);
