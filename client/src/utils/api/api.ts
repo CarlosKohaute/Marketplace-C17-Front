@@ -62,8 +62,8 @@ export const api = {
     try {
       const response = await axios.patch("/categories", payload);
       return response.data;
-    } catch (err) {
-      HandleError(err);
+    } catch (err: any) {
+      HandleError({ message: err.message });
     }
   },
 
@@ -71,8 +71,8 @@ export const api = {
     try {
       const response = await axios.delete(`/categories/${payload}`);
       return response.data;
-    } catch (err) {
-      HandleError(err);
+    } catch (err: any) {
+      HandleError({ message: err.message });
     }
   },
 
@@ -85,7 +85,7 @@ export const api = {
       }
       return response.data;
     } catch (err: any) {
-      HandleError(err);
+      HandleError({ message: err.message });
     }
   },
 
@@ -93,8 +93,8 @@ export const api = {
     try {
       const response = await axios.post("/products", payload);
       return response.data;
-    } catch (err) {
-      HandleError(err);
+    } catch (err: any) {
+      HandleError({ message: err.message });
     }
   },
 
@@ -102,8 +102,8 @@ export const api = {
     try {
       const response = await axios.get("products");
       return response.data;
-    } catch (err) {
-      HandleError(err);
+    } catch (err: any) {
+      HandleError({ message: err.message });
     }
   },
 
@@ -111,8 +111,8 @@ export const api = {
     try {
       const response = await axios.post("/Users", payload);
       return response.data;
-    } catch (err) {
-      HandleError(err);
+    } catch (err: any) {
+      HandleError({ message: err.message });
     }
   },
 };
