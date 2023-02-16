@@ -14,6 +14,7 @@ export const CategorieCardButton = styled.button<CategorieCardButtonProps>`
   background-color: ${(props) => props.backgroundColor};
   color: white;
   border-radius: 5px;
+  min-width: 130px;
   min-height: 100px;
   cursor: pointer;
   transition: 0.5s;
