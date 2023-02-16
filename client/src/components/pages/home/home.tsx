@@ -3,10 +3,11 @@ import { api } from "../../../utils/api/api";
 import { Card } from "../../atoms/card/card";
 import { Form, InputProps } from "../../atoms/form/form";
 import { Select } from "../../atoms/select/select";
+import { UpdateCategorieForm } from "../../celules/update-categorie-form/update-categorie-form";
 import { CategorieCard } from "../../molecules/categorie-card/categorie-card";
+import { CategorieCardOptionsContainer } from "../../molecules/categorie-card/styles";
 import ProductList from "../../molecules/products-list/products-list";
 import { Categorie } from "../../types/data";
-
 
 export function Home() {
   const [categories, setCategories] = useState<Categorie[]>([]);
@@ -15,8 +16,11 @@ export function Home() {
   >();
   const [control, setControl] = useState<boolean>(false);
   const [isEditingMode, setIsEditingMode] = useState<boolean>(false);
-
-   const categorieSelectedData = categories.find(
+  async function handleDeleteCategorie() {
+    await api.deleteCategorie(categorieSelectedData?.id ?? "");
+    handleControl();
+  }
+  const categorieSelectedData = categories.find(
     (categorie) => categorie.id == selectedCategorie
   );
   console.log(categories);
@@ -51,17 +55,44 @@ export function Home() {
         selectedOption={getSelectedCategorie}
       />
       <div>
-      {selectedCategorie && (
+        {selectedCategorie && (
           <CategorieCard
             categorie={categorieSelectedData ?? ({} as Categorie)}
-            changeEditingMode={handleEditMode}
-            handleControl={handleControl}
-            editingMode={isEditingMode}
           />
         )}
       </div>
+      <CategorieCardOptionsContainer>
+        {selectedCategorie && (
+          <>
+            <button
+              onClick={() => {
+                handleEditMode();
+              }}
+            >
+              Edit this classroom
+            </button>
+            <button onClick={handleDeleteCategorie}>
+              Delete this categorie
+            </button>
+          </>
+        )}
+        {isEditingMode ? (
+          <UpdateCategorieForm
+            handleControl={handleControl}
+            categorie={categorieSelectedData ?? ({} as Categorie)}
+            changeEditingMode={handleEditMode}
+          />
+        ) : (
+          <UpdateCategorieForm handleControl={handleControl} changeEditingMode={function (): void {
+              throw new Error("Function not implemented.");
+            } } categorie={{
+              id: "",
+              name: "",
+              products: []
+            }} />
+        )}
+      </CategorieCardOptionsContainer>
       <ProductList selectedCategorie={selectedCategorie} />
     </div>
   );
 }
-

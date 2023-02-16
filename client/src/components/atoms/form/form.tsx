@@ -2,14 +2,19 @@ import { FormEvent } from "react";
 import { FormContainer } from "./style";
 
 export interface InputProps {
-  placeholder: string;
+  placeholder?: string;
   name: string;
   image: string;
-  price: number;
-  description: string;
-  categoryId: string;
+  price?: number;
+  description?: string;
+  categoryId?: string;
   defaultValue?: string;
+  email?: string
+  cpf?: string;
+  password?: string
+
 }
+
 export interface FormProps<T = FormEvent<HTMLFormElement>> {
   title: string;
   inputs: InputProps[];

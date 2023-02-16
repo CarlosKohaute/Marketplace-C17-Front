@@ -1,5 +1,11 @@
 import axios from "axios";
-import { createProductPayload, LoginRequest, UpdateCategoriePayload } from "../types/requests";
+import {
+  createProductPayload,
+  LoginRequest,
+  UpdateCategoriePayload,
+  UserPayload,
+} from "../types/requests";
+import { HandleError } from "../errors/handle-error-modal";
 
 axios.defaults.baseURL = "http://localhost:3333";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -37,8 +43,8 @@ export const api = {
       const response = await axios.post("/auth/login", { email, password });
       localStorage.setItem("token", response.data.token);
       return response.data;
-    } catch (err) {
-      alert(err);
+    } catch (err: any) {
+      HandleError(err);
     }
   },
 
@@ -46,8 +52,8 @@ export const api = {
     try {
       const response = await axios.get("/categories");
       return response.data;
-    } catch (err) {
-      alert(err);
+    } catch (err: any) {
+      HandleError(err);
     }
   },
 
@@ -56,7 +62,7 @@ export const api = {
       const response = await axios.patch("/categories", payload);
       return response.data;
     } catch (err) {
-      alert(err);
+      HandleError(err);
     }
   },
 
@@ -65,7 +71,7 @@ export const api = {
       const response = await axios.delete(`/categories/${payload}`);
       return response.data;
     } catch (err) {
-      alert(err);
+      HandleError(err);
     }
   },
   createProductList: async (payload: createProductPayload) => {
@@ -73,7 +79,7 @@ export const api = {
       const response = await axios.post("/products", payload);
       return response.data;
     } catch (err) {
-      alert(err);
+      HandleError(err);
     }
   },
 
@@ -82,7 +88,16 @@ export const api = {
       const response = await axios.get("products");
       return response.data;
     } catch (err) {
-      alert(err);
+      HandleError(err);
+    }
+  },
+
+  createUser: async (payload: UserPayload) => {
+    try {
+      const response = await axios.post("/Users", payload);
+      return response.data;
+    } catch (err) {
+      HandleError(err);
     }
   },
 };

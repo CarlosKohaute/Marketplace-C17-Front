@@ -15,3 +15,11 @@ export type UpdateCategoriePayload = {
   name?: string;
   products?: string[];
 };
+
+export type UserPayload = {
+  name: string;
+  email: string;
+  password: string;
+  cpf: string;
+  image: string
+};
