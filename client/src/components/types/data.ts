@@ -10,6 +10,7 @@ export type User = {
 };
 
 export type Categorie = {
+  theme: string | undefined;
   id: string;
   name: string;
   products:string[]

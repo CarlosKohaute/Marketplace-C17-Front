@@ -75,6 +75,20 @@ export const api = {
       HandleError(err);
     }
   },
+
+  
+  getCategorieById: async (id: string) => {
+    try {
+      const response = await axios.get(`/categories/${id}`);
+      if (!response.data) {
+        throw new Error("Categories not found");
+      }
+      return response.data;
+    } catch (err: any) {
+      HandleError(err);
+    }
+  },
+
   createProductList: async (payload: createProductPayload) => {
     try {
       const response = await axios.post("/products", payload);
