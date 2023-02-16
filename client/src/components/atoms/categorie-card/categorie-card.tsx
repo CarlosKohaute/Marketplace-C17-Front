@@ -17,7 +17,7 @@ export function CategorieCard({ id, name, theme, color }: CardProps) {
     <CategorieCardButton
       backgroundColor={color}
       onClick={() => {
-        navigate("/products/" + id);
+        navigate("/products");
       }}
     >
       <h2>{name}</h2>

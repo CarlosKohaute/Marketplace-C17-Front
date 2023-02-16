@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/register" element={<CreateUser />} />
-          <Route path="/categories/:id" element={<CategoriePage />} />
+          <Route path="/products" element={<CategoriePage />} />
         </Routes>
       </BrowserRouter>
       <GlobalStyle />
