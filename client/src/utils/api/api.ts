@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createProductPayload, LoginRequest } from "../types/requests";
+import { createProductPayload, LoginRequest, UpdateCategoriePayload } from "../types/requests";
 
 axios.defaults.baseURL = "http://localhost:3333";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -51,6 +51,23 @@ export const api = {
     }
   },
 
+  updateCategorie: async (payload: UpdateCategoriePayload) => {
+    try {
+      const response = await axios.patch("/categories", payload);
+      return response.data;
+    } catch (err) {
+      alert(err);
+    }
+  },
+
+  deleteCategorie: async (payload: string) => {
+    try {
+      const response = await axios.delete(`/categories/${payload}`);
+      return response.data;
+    } catch (err) {
+      alert(err);
+    }
+  },
   createProductList: async (payload: createProductPayload) => {
     try {
       const response = await axios.post("/products", payload);

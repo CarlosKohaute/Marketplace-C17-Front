@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../utils/api/api";
-import { productPayload } from "../../pages/home/home";
+import { ProductPayload } from "../../types/data";
 
 export type ProductsListProps = {
   selectedCategorie: string | undefined;
 };
 
 export default function ProductList({ selectedCategorie }: ProductsListProps) {
-  const [products, setProducts] = useState<productPayload[]>([]);
+  const [products, setProducts] = useState<ProductPayload[]>([]);
   const [control, setControl] = useState<boolean>(false);
 
   const sortedProductsByCategorieId = selectedCategorie

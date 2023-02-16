@@ -10,3 +10,8 @@ export type createProductPayload = {
   image: string;
   categoryId: string;
 };
+export type UpdateCategoriePayload = {
+  id: string;
+  name?: string;
+  products?: string[];
+};

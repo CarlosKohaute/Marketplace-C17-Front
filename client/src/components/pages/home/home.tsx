@@ -3,21 +3,10 @@ import { api } from "../../../utils/api/api";
 import { Card } from "../../atoms/card/card";
 import { Form, InputProps } from "../../atoms/form/form";
 import { Select } from "../../atoms/select/select";
-import { createProductForm } from "../../molecules/create-product/create-product-form";
+import { CategorieCard } from "../../molecules/categorie-card/categorie-card";
 import ProductList from "../../molecules/products-list/products-list";
+import { Categorie } from "../../types/data";
 
-export type Categorie = {
-  id: string;
-  name: string;
-};
-
-export type productPayload = {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  categoryId: string;
-};
 
 export function Home() {
   const [categories, setCategories] = useState<Categorie[]>([]);
@@ -25,7 +14,12 @@ export function Home() {
     string | undefined
   >();
   const [control, setControl] = useState<boolean>(false);
+  const [isEditingMode, setIsEditingMode] = useState<boolean>(false);
 
+   const categorieSelectedData = categories.find(
+    (categorie) => categorie.id == selectedCategorie
+  );
+  console.log(categories);
   async function findCategories() {
     const data = await api.getCategories();
     setCategories(data);
@@ -37,6 +31,10 @@ export function Home() {
 
   function handleControl() {
     setControl(!control);
+  }
+
+  function handleEditMode() {
+    setIsEditingMode(!isEditingMode);
   }
 
   useEffect(() => {
@@ -52,7 +50,18 @@ export function Home() {
         })}
         selectedOption={getSelectedCategorie}
       />
-      <ProductList selectedCategorie={selectedCategorie}/>
+      <div>
+      {selectedCategorie && (
+          <CategorieCard
+            categorie={categorieSelectedData ?? ({} as Categorie)}
+            changeEditingMode={handleEditMode}
+            handleControl={handleControl}
+            editingMode={isEditingMode}
+          />
+        )}
+      </div>
+      <ProductList selectedCategorie={selectedCategorie} />
     </div>
   );
 }
+
